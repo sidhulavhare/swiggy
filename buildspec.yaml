@@ -5,11 +5,12 @@ phases:
     runtime-versions:
       python: 3.11
       java: corretto17
-      docker: true
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
       - pip install awscli
+      - echo "Checking Docker version..."
+      - docker --version  # Ensure Docker is available in the environment
 
   pre_build:
     commands:
@@ -33,8 +34,6 @@ phases:
 env:
   variables:
     DOCKERHUB_USERNAME: sidhulavhare
-    DOCKERHUB_PASSWORD: Sidhu@123
-    IMAGE_NAME: my-swiggy    # Replace with your image name
-    IMAGE_TAG: latest            # Replace with your desired tag
-
- 
+    DOCKERHUB_PASSWORD: Sidhu@123  # Replace with a secure secret in AWS Secrets Manager
+    IMAGE_NAME: my-swiggy          # Replace with your image name
+    IMAGE_TAG: latest              # Replace with your desired tag
