@@ -37,6 +37,4 @@ env:
     IMAGE_NAME: my-swiggy    # Replace with your image name
     IMAGE_TAG: latest            # Replace with your desired tag
 
-  secrets-manager:
-    DOCKERHUB_USERNAME: "your-dockerhub-username-secret-id" # Replace with the secret key in AWS Secrets Manager
-    DOCKERHUB_PASSWORD: "your-dockerhub-password-secret-id" # Replace with the secret key in AWS Secrets Manager
+ 
