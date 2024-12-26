@@ -34,7 +34,7 @@ phases:
       # Push the Docker image to ECR
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo "Build and push complete."
-      - echo '[{"name":"<your-ecs-container-name>","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > imagedefinitions.json
+      - echo '[{"name":"swiggy","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > imagedefinitions.json
 
 
 artifacts:
