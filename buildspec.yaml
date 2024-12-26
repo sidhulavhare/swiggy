@@ -14,7 +14,7 @@ phases:
 
   pre_build:
     commands:
-      - echo Setting up environment variables...
+      - echo "Setting up environment variables..."
       # Set the ECR repository URI (replace <aws_account_id> and <repository_name>)
       - REPOSITORY_URI=427601800855.dkr.ecr.us-east-1.amazonaws.com/swiggy
       - IMAGE_TAG=latest
@@ -22,22 +22,18 @@ phases:
 
   build:
     commands:
-     - echo Building the Docker image...
+      - echo "Building the Docker image..."
       # Build the Docker image
       - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
       - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG
 
   post_build:
     commands:
-      - echo Pushing the Docker image to Amazon ECR...
+      - echo "Pushing the Docker image to Amazon ECR..."
       # Push the Docker image to ECR
       - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Build and push complete.
+      - echo "Build and push complete."
 
-
-#env:
-  #variables:
-    #DOCKERHUB_USERNAME: sidhulavhare
-   #DOCKERHUB_PASSWORD: Sidhu@123  # Replace with a secure secret in AWS Secrets Manager
-    #IMAGE_NAME: my-swiggy          # Replace with your image name
-    #IMAGE_TAG: latest              # Replace with your desired tag
+artifacts:
+  files:
+    - '**/*'
