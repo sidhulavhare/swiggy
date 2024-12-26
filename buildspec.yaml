@@ -5,39 +5,27 @@ phases:
     runtime-versions:
       python: 3.11
       java: corretto17
+      nodejs: 16 # Adjust Node.js version based on your app
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
       - pip install awscli
-      - echo "Checking Docker version..."
-      - docker --version  # Ensure Docker is available in the environment
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 427601800855.dkr.ecr.us-east-1.amazonaws.com
-
-  pre_build:
-    commands:
-      - echo "Setting up environment variables..."
-      # Set the ECR repository URI (replace <aws_account_id> and <repository_name>)
-      - REPOSITORY_URI=427601800855.dkr.ecr.us-east-1.amazonaws.com/swiggy
-      - IMAGE_TAG=latest
-      - echo $REPOSITORY_URI
+      - echo "Node.js version:"
+      - node --version
+      - echo "Installing project dependencies..."
+      - npm install # Ensure your `package.json` includes all necessary dependencies
 
   build:
     commands:
-      - echo "Building the Docker image..."
-      # Build the Docker image
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
-      - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG
+      - echo "Building the application..."
+      - npm run build # Replace with your build command (e.g., `npm run build` or `yarn build`)
 
   post_build:
     commands:
-      - echo "Pushing the Docker image to Amazon ECR..."
-      # Push the Docker image to ECR
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo "Build and push complete."
-      - echo '[{"name":"swiggy","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > imagedefinitions.json
-
+      - echo "Build complete. Deploying to S3..."
+      - aws s3 sync ./build s3://swiggy1 --delete # Replace with your bucket name
+      - echo "Deployment complete. Files synced to S3 bucket."
 
 artifacts:
   files:
-    - imagedefinitions.json
     - '**/*'
