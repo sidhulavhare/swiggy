@@ -96,7 +96,7 @@ function RestaurentOnline() {
                         </div>
                         <h5 className='mt-3'>KFC</h5>
                         <i style={{color:"#20963a"}} className="fa-solid fa-star">20% OFF UPTO ₹50</i>4.1
-                        <p style={{fontWeight:"300"}}>American, Burgers, Biriyani, Snacks,...<br />Kakkanad</p>
+                        <p style={{fontWeight:"300"}}>American, Burgers, RicePlate, Snacks,...<br />Kakkanad</p>
                     </div>
 
                     <div className='Online-card'>
