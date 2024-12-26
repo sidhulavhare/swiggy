@@ -11,6 +11,7 @@ phases:
       - pip install awscli
       - echo "Checking Docker version..."
       - docker --version  # Ensure Docker is available in the environment
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 427601800855.dkr.ecr.us-east-1.amazonaws.com
 
   pre_build:
     commands:
